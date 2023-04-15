@@ -1,6 +1,5 @@
-export const isInRange = (n: number, min = 1, max = 100) => {
-  throw new Error("Not implemented");
-};
+export const isInRange = (n: number, min = 1, max = 100) =>
+  n >= min && n <= max;
 
 export const isMultipleOf = (n: number, factor: number) => n % factor === 0;
 
