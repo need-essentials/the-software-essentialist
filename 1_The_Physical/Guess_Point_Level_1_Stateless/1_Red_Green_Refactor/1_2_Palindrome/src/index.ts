@@ -1,3 +1,7 @@
 export function isPalindrome(str: string): boolean {
-  throw new Error("Not implemented");
+  if (str.length === 0) {
+    return true;
+  }
+
+  return false;
 }
