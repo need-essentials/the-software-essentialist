@@ -18,5 +18,5 @@ export function convertNumberToFizzBuzz(n: number): string {
 }
 
 export function fizzbuzz(numbers: number[]): string {
-  throw new Error("Not implemented");
+  return numbers.map(convertNumberToFizzBuzz).join("");
 }
