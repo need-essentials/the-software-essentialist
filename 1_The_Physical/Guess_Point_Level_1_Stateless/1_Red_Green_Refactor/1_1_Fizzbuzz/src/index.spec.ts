@@ -21,4 +21,9 @@ describe("fizzbuzz", () => {
     expect(fizzbuzz(2)).toBe("2");
     expect(fizzbuzz(4)).toBe("4");
   });
+
+  test("throws an error for out of range numbers", () => {
+    expect(() => fizzbuzz(0)).toThrow();
+    expect(() => fizzbuzz(101)).toThrow();
+  });
 });
