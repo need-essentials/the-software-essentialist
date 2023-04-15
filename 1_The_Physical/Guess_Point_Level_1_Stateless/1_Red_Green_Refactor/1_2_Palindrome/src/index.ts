@@ -3,7 +3,9 @@ export function normalize(str: string): string {
 }
 
 export function isPalindrome(str: string): boolean {
-  if (str.length === 0) {
+  const normalizedStr = normalize(str);
+
+  if (normalizedStr.length === 0) {
     return true;
   }
 
