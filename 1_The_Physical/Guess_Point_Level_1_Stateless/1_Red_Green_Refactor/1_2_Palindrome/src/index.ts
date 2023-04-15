@@ -5,9 +5,17 @@ export function normalize(str: string): string {
 export function isPalindrome(str: string): boolean {
   const normalizedStr = normalize(str);
 
-  if (normalizedStr.length === 0) {
-    return true;
+  let left = 0;
+  let right = normalizedStr.length - 1;
+
+  while (left < right) {
+    if (normalizedStr[left] !== normalizedStr[right]) {
+      return false;
+    }
+
+    left++;
+    right--;
   }
 
-  return false;
+  return true;
 }
