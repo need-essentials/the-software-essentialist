@@ -15,4 +15,10 @@ describe("fizzbuzz", () => {
     expect(fizzbuzz(15)).toBe("FizzBuzz");
     expect(fizzbuzz(30)).toBe("FizzBuzz");
   });
+
+  test("returns the number as a string for non-multiples of 3 or 5", () => {
+    expect(fizzbuzz(1)).toBe("1");
+    expect(fizzbuzz(2)).toBe("2");
+    expect(fizzbuzz(4)).toBe("4");
+  });
 });
