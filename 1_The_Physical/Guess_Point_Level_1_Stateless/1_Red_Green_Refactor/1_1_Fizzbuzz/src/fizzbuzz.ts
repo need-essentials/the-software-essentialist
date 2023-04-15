@@ -7,7 +7,7 @@ export const assertInRange = (n: number, min = 1, max = 100) => {
 
 export const isMultipleOf = (n: number, factor: number) => n % factor === 0;
 
-export function fizzbuzz(n: number): string {
+export function convertNumberToFizzBuzz(n: number): string {
   assertInRange(n);
 
   if (isMultipleOf(n, 3) && isMultipleOf(n, 5)) return "FizzBuzz";
