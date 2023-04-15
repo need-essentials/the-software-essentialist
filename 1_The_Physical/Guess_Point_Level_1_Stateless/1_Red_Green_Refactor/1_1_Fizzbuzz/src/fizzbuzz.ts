@@ -1,6 +1,10 @@
 export const isInRange = (n: number, min = 1, max = 100) =>
   n >= min && n <= max;
 
+export const assertInRange = (n: number) => {
+  throw new Error("Out of range");
+};
+
 export const isMultipleOf = (n: number, factor: number) => n % factor === 0;
 
 export function fizzbuzz(n: number): string {
