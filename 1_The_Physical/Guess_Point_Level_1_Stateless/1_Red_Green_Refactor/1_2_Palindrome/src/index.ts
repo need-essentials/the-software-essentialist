@@ -1,5 +1,5 @@
 export function normalize(str: string): string {
-  throw new Error("Not implemented");
+  return str.toLowerCase().replace(/[^a-z]/g, "");
 }
 
 export function isPalindrome(str: string): boolean {
