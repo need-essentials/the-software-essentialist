@@ -1,4 +1,4 @@
-import { fizzbuzz, isMultipleOf } from "./fizzbuzz";
+import { fizzbuzz, isInRange, isMultipleOf } from "./fizzbuzz";
 
 describe("fizzbuzz", () => {
   test("returns Fizz for multiples of 3", () => {
@@ -36,6 +36,19 @@ describe("fizzbuzz", () => {
     test("returns true for multiples of 5", () => {
       expect(isMultipleOf(5, 5)).toBe(true);
       expect(isMultipleOf(10, 5)).toBe(true);
+    });
+  });
+
+  describe("isInRange", () => {
+    test("returns true for numbers between 1 and 100", () => {
+      expect(isInRange(1)).toBe(true);
+      expect(isInRange(50)).toBe(true);
+      expect(isInRange(100)).toBe(true);
+    });
+
+    test("returns false for numbers outside the range", () => {
+      expect(isInRange(0)).toBe(false);
+      expect(isInRange(101)).toBe(false);
     });
   });
 });
