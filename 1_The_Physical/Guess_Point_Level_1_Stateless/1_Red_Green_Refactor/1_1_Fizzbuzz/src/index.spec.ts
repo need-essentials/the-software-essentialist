@@ -1,11 +1,30 @@
 import {
   assertInRange,
   convertNumberToFizzBuzz,
+  fizzbuzz,
   isInRange,
   isMultipleOf,
 } from "./fizzbuzz";
 
 describe("fizzbuzz", () => {
+  it("should return an empty string if n is empty", () => {
+    expect(fizzbuzz([])).toBe("");
+  });
+
+  it("should return the correct string if n is not empty", () => {
+    const useCases = [
+      { numbers: [1, 2, 3, 4, 5], expected: "12Fizz4Buzz" },
+      {
+        numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        expected: "12Fizz4BuzzFizz78FizzBuzz",
+      },
+    ];
+
+    useCases.forEach(({ numbers, expected }) => {
+      expect(fizzbuzz(numbers)).toBe(expected);
+    });
+  });
+
   describe("convertNumberToFizzBuzz", () => {
     test("returns Fizz for multiples of 3", () => {
       expect(convertNumberToFizzBuzz(3)).toBe("Fizz");

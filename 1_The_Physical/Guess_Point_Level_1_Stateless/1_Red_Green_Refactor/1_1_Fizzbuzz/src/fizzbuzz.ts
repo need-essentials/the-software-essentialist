@@ -16,3 +16,7 @@ export function convertNumberToFizzBuzz(n: number): string {
 
   return n.toString();
 }
+
+export function fizzbuzz(numbers: number[]): string {
+  throw new Error("Not implemented");
+}
