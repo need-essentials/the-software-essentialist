@@ -32,6 +32,16 @@ describe("password validator", () => {
           "Password length must be at least 5 characters",
         ]);
       });
+
+      it("should return a PasswordValidatorResult with result false and errors when password length is more than 15", () => {
+        const password = "1234567890123456";
+        const validator = new PasswordValidator(password);
+        const result = validator.validate();
+        expect(result.result).toBeFalsy();
+        expect(result.errors).toEqual([
+          "Password length must be at most 15 characters",
+        ]);
+      });
     });
   });
 
