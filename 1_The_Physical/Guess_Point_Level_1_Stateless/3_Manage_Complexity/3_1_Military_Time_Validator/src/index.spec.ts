@@ -1,4 +1,9 @@
-import { isHourInRange, isInRange, isMinuteInRange } from "./index";
+import {
+  isHourInRange,
+  isInRange,
+  isMinuteInRange,
+  isValidTime,
+} from "./index";
 
 describe("military time validator", () => {
   describe("isInRange", () => {
@@ -28,6 +33,16 @@ describe("military time validator", () => {
 
     it("should return false if minute is not in range", () => {
       expect(isMinuteInRange(61)).toBe(false);
+    });
+  });
+
+  describe("isValidTime", () => {
+    it("should return true if time is valid", () => {
+      expect(isValidTime("12:00")).toBe(true);
+    });
+
+    it("should return false if time is invalid", () => {
+      expect(isValidTime("25:00")).toBe(false);
     });
   });
 });
