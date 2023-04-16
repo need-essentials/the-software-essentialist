@@ -14,7 +14,7 @@ export abstract class AbstractPasswordValidatorHandler
     handler: IPasswordValidatorHandler
   ): IPasswordValidatorHandler {
     this.nextHandler = handler;
-    return handler;
+    return this;
   }
 
   public handle(password: string, result: PasswordValidatorResult): void {

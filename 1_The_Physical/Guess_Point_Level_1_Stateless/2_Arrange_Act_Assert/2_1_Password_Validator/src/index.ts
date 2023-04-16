@@ -19,6 +19,15 @@ export class LengthValidator extends AbstractPasswordValidatorHandler {
   }
 }
 
+export class DigitValidator extends AbstractPasswordValidatorHandler {
+  handle(password: string, result: PasswordValidatorResult): void {
+    if (!/[0-9]/.test(password)) {
+      result.addError("Password must contain a digit");
+    }
+    super.handle(password, result);
+  }
+}
+
 export class PasswordValidatorResult implements IPasswordValidatorResult {
   result: boolean;
   errors?: string[];

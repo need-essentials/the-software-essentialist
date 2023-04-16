@@ -1,4 +1,5 @@
 import {
+  DigitValidator,
   LengthValidator,
   PasswordValidator,
   PasswordValidatorResult,
@@ -118,6 +119,21 @@ describe("password validator", () => {
       expect(result.errors).toContain(
         "Password length must be at most 15 characters"
       );
+    });
+  });
+
+  describe("DigitValidator", () => {
+    it("should return error if the password does not contain a digit", () => {
+      //Arrange
+      const validator = new DigitValidator();
+      const result = new PasswordValidatorResult(true);
+
+      //Act
+      validator.handle("Abcdef", result);
+
+      //Assert
+      expect(result.result).toBeFalsy();
+      expect(result.errors).toContain("Password must contain a digit");
     });
   });
 });
