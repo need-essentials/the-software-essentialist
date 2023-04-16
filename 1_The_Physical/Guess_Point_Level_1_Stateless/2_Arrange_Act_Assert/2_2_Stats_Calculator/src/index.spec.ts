@@ -72,4 +72,22 @@ describe("stats calculator", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  it("should calculate the average value", () => {
+    const useCases = [
+      {
+        numbers: [1, 2, 3],
+        expected: 2,
+      },
+      {
+        numbers: [100, 2, 3, 4, 5],
+        expected: 22.8,
+      },
+    ];
+
+    useCases.forEach(({ numbers, expected }) => {
+      const actual = statsCalculator(numbers).averageValue;
+      expect(actual).toEqual(expected);
+    });
+  });
 });

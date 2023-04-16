@@ -3,6 +3,7 @@ export type Stats = {
   numberOfElements: number;
   min: number;
   max: number;
+  averageValue: number;
 };
 
 export const statsCalculator = (numbers: number[]): Stats => {
@@ -17,5 +18,14 @@ export const statsCalculator = (numbers: number[]): Stats => {
     { sum: 0, min: Infinity, max: -Infinity }
   );
 
-  return { sum, numberOfElements: numbers.length, min, max };
+  const numberOfElements = numbers.length;
+  const averageValue = sum / numberOfElements;
+
+  return {
+    sum,
+    min,
+    max,
+    numberOfElements,
+    averageValue,
+  };
 };
