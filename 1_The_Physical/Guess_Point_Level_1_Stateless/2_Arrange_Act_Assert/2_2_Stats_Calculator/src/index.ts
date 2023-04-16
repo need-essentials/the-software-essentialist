@@ -3,5 +3,6 @@ export const statsCalculator = (
 ): {
   sum: number;
 } => {
-  throw new Error("Not implemented");
+  const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+  return { sum };
 };
