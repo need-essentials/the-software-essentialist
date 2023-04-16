@@ -65,17 +65,15 @@ export class PasswordValidator {
 
   constructor(password: string) {
     this.password = password;
-    this.handler = new LengthValidator().setNext(new DigitValidator());
+    this.handler = new LengthValidator()
+      .setNext(new DigitValidator())
+      .setNext(new CaseValidator());
   }
 
   public validate(): IPasswordValidatorResult {
     const result = new PasswordValidatorResult(true);
 
     this.handler.handle(this.password, result);
-
-    if (!/[A-Z]/.test(this.password)) {
-      result.addError("Password must contain an uppercase letter");
-    }
 
     return result;
   }

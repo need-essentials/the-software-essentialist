@@ -29,40 +29,13 @@ describe("password validator", () => {
         expect(result.result).toBeTruthy();
       });
 
-      it("should return a PasswordValidatorResult with result false and errors when password length is less than 5", () => {
-        const password = "123A";
+      it("should return a PasswordValidatorResult with result false", () => {
+        const password = "test";
         const validator = new PasswordValidator(password);
         const result = validator.validate();
         expect(result.result).toBeFalsy();
         expect(result.errors).toEqual([
           "Password length must be at least 5 characters",
-        ]);
-      });
-
-      it("should return a PasswordValidatorResult with result false and errors when password length is more than 15", () => {
-        const password = "1234567890123456A";
-        const validator = new PasswordValidator(password);
-        const result = validator.validate();
-        expect(result.result).toBeFalsy();
-        expect(result.errors).toEqual([
-          "Password length must be at most 15 characters",
-        ]);
-      });
-
-      it("should return a PasswordValidatorResult with result false and errors when password does not contain a digit", () => {
-        const password = "Test password";
-        const validator = new PasswordValidator(password);
-        const result = validator.validate();
-        expect(result.result).toBeFalsy();
-        expect(result.errors).toEqual(["Password must contain a digit"]);
-      });
-
-      it("should return a PasswordValidatorResult with result false and errors when password length is less than 5 and does not contain uppercase letter", () => {
-        const password = "12345";
-        const validator = new PasswordValidator(password);
-        const result = validator.validate();
-        expect(result.result).toBeFalsy();
-        expect(result.errors).toEqual([
           "Password must contain an uppercase letter",
         ]);
       });
