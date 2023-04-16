@@ -22,6 +22,16 @@ describe("password validator", () => {
         const result = validator.validate();
         expect(result.result).toBeTruthy();
       });
+
+      it("should return a PasswordValidatorResult with result false and errors when password length is less than 5", () => {
+        const password = "1234";
+        const validator = new PasswordValidator(password);
+        const result = validator.validate();
+        expect(result.result).toBeFalsy();
+        expect(result.errors).toEqual([
+          "Password length must be at least 5 characters",
+        ]);
+      });
     });
   });
 
