@@ -1,10 +1,12 @@
+const timePattern = "([0-9]{2}:[0-9]{2})";
+
 export const hasValidTimeFormat = (time: string): boolean => {
-  const timeFormat = /^([0-9]{2}):([0-9]{2})$/;
+  const timeFormat = new RegExp(`^${timePattern}$`);
   return timeFormat.test(time);
 };
 
 export const hasValidTimeRangeFormat = (timeRange: string): boolean => {
-  const timeRangeFormat = /^([0-9]{2}:[0-9]{2}) - ([0-9]{2}:[0-9]{2})$/;
+  const timeRangeFormat = new RegExp(`^${timePattern} - ${timePattern}$`);
   return timeRangeFormat.test(timeRange);
 };
 
