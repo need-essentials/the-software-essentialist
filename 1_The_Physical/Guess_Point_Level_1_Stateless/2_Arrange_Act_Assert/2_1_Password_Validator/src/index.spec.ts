@@ -1,6 +1,14 @@
-import { PasswordValidatorResult } from "./index";
+import { PasswordValidator, PasswordValidatorResult } from "./index";
 
 describe("password validator", () => {
+  describe("PasswordValidator", () => {
+    it("should initialize with the given password", () => {
+      const password = "Test password";
+      const validator = new PasswordValidator(password);
+      expect(validator).toBeInstanceOf(PasswordValidator);
+    });
+  });
+
   describe("PasswordValidatorResult", () => {
     it("should initialize with the given result and errors", () => {
       const result = new PasswordValidatorResult(true, ["Test error"]);

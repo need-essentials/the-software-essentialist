@@ -20,3 +20,11 @@ export class PasswordValidatorResult implements IPasswordValidatorResult {
     this.errors.push(...errors);
   }
 }
+
+export class PasswordValidator {
+  private password: string;
+
+  constructor(password: string) {
+    throw new Error("Not implemented");
+  }
+}
