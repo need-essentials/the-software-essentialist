@@ -12,6 +12,8 @@ export const isMinuteInRange = (minute: number): boolean =>
   isInRange(minute, 0, 59);
 
 export const isValidTime = (time: string): boolean => {
+  if (!hasValidTimeFormat(time)) return false;
+
   const [hour, minute] = time.split(":").map(Number);
   return isHourInRange(hour) && isMinuteInRange(minute);
 };
