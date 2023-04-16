@@ -1,6 +1,19 @@
+import { AbstractPasswordValidatorHandler } from "./AbstractPasswordValidatorHandler";
+
 export interface IPasswordValidatorResult {
   result: boolean;
   errors?: string[];
+}
+
+export class LengthValidator extends AbstractPasswordValidatorHandler {
+  handle(password: string, result: PasswordValidatorResult): void {
+    if (password.length < 5) {
+      result.addError("Password length must be at least 5 characters");
+    } else if (password.length > 15) {
+      result.addError("Password length must be at most 15 characters");
+    }
+    super.handle(password, result);
+  }
 }
 
 export class PasswordValidatorResult implements IPasswordValidatorResult {

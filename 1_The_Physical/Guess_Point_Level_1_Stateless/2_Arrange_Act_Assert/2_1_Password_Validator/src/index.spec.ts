@@ -1,4 +1,8 @@
-import { PasswordValidator, PasswordValidatorResult } from "./index";
+import {
+  LengthValidator,
+  PasswordValidator,
+  PasswordValidatorResult,
+} from "./index";
 
 describe("password validator", () => {
   describe("PasswordValidator", () => {
@@ -82,6 +86,38 @@ describe("password validator", () => {
       expect(result.errors).toBeUndefined();
       result.addError("New error 1");
       expect(result.errors).toEqual(["New error 1"]);
+    });
+  });
+
+  describe("LengthValidator", () => {
+    it("should return error if the password is too short", () => {
+      //Arrange
+      const validator = new LengthValidator();
+      const result = new PasswordValidatorResult(true);
+
+      //Act
+      validator.handle("Abc1", result);
+
+      //Assert
+      expect(result.result).toBeFalsy();
+      expect(result.errors).toContain(
+        "Password length must be at least 5 characters"
+      );
+    });
+
+    it("should return error if the password is too long", () => {
+      //Arrange
+      const validator = new LengthValidator();
+      const result = new PasswordValidatorResult(true);
+
+      //Act
+      validator.handle("123456789012345Ab", result);
+
+      //Assert
+      expect(result.result).toBeFalsy();
+      expect(result.errors).toContain(
+        "Password length must be at most 15 characters"
+      );
     });
   });
 });
