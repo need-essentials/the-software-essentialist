@@ -3,6 +3,11 @@ export const hasValidTimeFormat = (time: string): boolean => {
   return timeFormat.test(time);
 };
 
+export const hasValidTimeRangeFormat = (timeRange: string): boolean => {
+  const timeRangeFormat = /^([0-9]{2}:[0-9]{2}) - ([0-9]{2}:[0-9]{2})$/;
+  return timeRangeFormat.test(timeRange);
+};
+
 export const isInRange = (value: number, min: number, max: number): boolean =>
   value >= min && value <= max;
 

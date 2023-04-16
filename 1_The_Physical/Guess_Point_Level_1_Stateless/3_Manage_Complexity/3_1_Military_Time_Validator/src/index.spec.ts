@@ -1,5 +1,6 @@
 import {
   hasValidTimeFormat,
+  hasValidTimeRangeFormat,
   isHourInRange,
   isInRange,
   isMilitaryTime,
@@ -17,6 +18,17 @@ describe("military time validator", () => {
       expect(hasValidTimeFormat("12:0")).toBe(false);
     });
   });
+
+  describe("hasValidTimeRangeFormat", () => {
+    it("should return true if time range has valid format", () => {
+      expect(hasValidTimeRangeFormat("12:00 - 12:00")).toBe(true);
+    });
+
+    it("should return false if time range has invalid format", () => {
+      expect(hasValidTimeRangeFormat("12:0 - 12:00")).toBe(false);
+    });
+  });
+
   describe("isInRange", () => {
     it("should return true if value is in range", () => {
       expect(isInRange(5, 0, 10)).toBe(true);
