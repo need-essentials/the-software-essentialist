@@ -1,4 +1,7 @@
-import { AbstractPasswordValidatorHandler } from "./AbstractPasswordValidatorHandler";
+import {
+  AbstractPasswordValidatorHandler,
+  IPasswordValidatorHandler,
+} from "./AbstractPasswordValidatorHandler";
 
 export interface IPasswordValidatorResult {
   result: boolean;
@@ -36,21 +39,17 @@ export class PasswordValidatorResult implements IPasswordValidatorResult {
 
 export class PasswordValidator {
   private password: string;
+  private handler: IPasswordValidatorHandler;
 
   constructor(password: string) {
     this.password = password;
+    this.handler = new LengthValidator();
   }
 
   public validate(): IPasswordValidatorResult {
     const result = new PasswordValidatorResult(true);
 
-    if (this.password.length < 5) {
-      result.addError("Password length must be at least 5 characters");
-    }
-
-    if (this.password.length > 15) {
-      result.addError("Password length must be at most 15 characters");
-    }
+    this.handler.handle(this.password, result);
 
     if (!/\d/.test(this.password)) {
       result.addError("Password must contain a digit");

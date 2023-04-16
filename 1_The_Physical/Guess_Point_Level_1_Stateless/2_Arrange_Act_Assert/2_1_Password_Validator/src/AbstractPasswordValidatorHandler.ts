@@ -1,6 +1,6 @@
 import { PasswordValidatorResult } from ".";
 
-interface IPasswordValidatorHandler {
+export interface IPasswordValidatorHandler {
   setNext(handler: IPasswordValidatorHandler): IPasswordValidatorHandler;
   handle(password: string, result: PasswordValidatorResult): void;
 }
