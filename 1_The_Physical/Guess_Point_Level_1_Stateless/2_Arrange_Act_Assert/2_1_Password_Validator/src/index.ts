@@ -31,6 +31,10 @@ export class PasswordValidator {
   public validate(): IPasswordValidatorResult {
     const result = new PasswordValidatorResult(true);
 
+    if (this.password.length < 5) {
+      result.addError("Password length must be at least 5 characters");
+    }
+
     return result;
   }
 }
