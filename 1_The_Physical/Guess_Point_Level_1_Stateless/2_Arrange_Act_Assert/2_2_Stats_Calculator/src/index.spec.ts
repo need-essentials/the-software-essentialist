@@ -18,4 +18,22 @@ describe("stats calculator", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  it("should calculate the number of elements", () => {
+    const useCases = [
+      {
+        numbers: [1, 2, 3],
+        expected: 3,
+      },
+      {
+        numbers: [1, 2, 3, 4, 5],
+        expected: 5,
+      },
+    ];
+
+    useCases.forEach(({ numbers, expected }) => {
+      const actual = statsCalculator(numbers).numberOfElements;
+      expect(actual).toEqual(expected);
+    });
+  });
 });
