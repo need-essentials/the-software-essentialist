@@ -24,6 +24,8 @@ export const isValidTime = (time: string): boolean => {
 };
 
 export const isMilitaryTime = (timeRange: string): boolean => {
+  if (!hasValidTimeRangeFormat(timeRange)) return false;
+
   const [start, end] = timeRange.split(" - ");
   return isValidTime(start) && isValidTime(end);
 };
