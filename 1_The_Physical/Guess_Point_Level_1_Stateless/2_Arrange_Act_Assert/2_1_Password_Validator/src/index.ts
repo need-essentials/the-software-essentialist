@@ -11,4 +11,8 @@ export class PasswordValidatorResult implements IPasswordValidatorResult {
     this.result = result;
     this.errors = errors;
   }
+
+  public addError(...errors: string[]): void {
+    throw new Error("Not implemented");
+  }
 }
