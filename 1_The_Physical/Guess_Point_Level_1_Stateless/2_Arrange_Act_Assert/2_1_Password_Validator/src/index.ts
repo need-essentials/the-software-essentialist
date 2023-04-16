@@ -28,6 +28,19 @@ export class DigitValidator extends AbstractPasswordValidatorHandler {
   }
 }
 
+export class CaseValidator extends AbstractPasswordValidatorHandler {
+  handle(password: string, result: PasswordValidatorResult): void {
+    if (!/[A-Z]/.test(password)) {
+      result.addError("Password must contain an uppercase letter");
+    }
+
+    if (!/[a-z]/.test(password)) {
+      result.addError("Password must contain a lowercase letter");
+    }
+    super.handle(password, result);
+  }
+}
+
 export class PasswordValidatorResult implements IPasswordValidatorResult {
   result: boolean;
   errors?: string[];

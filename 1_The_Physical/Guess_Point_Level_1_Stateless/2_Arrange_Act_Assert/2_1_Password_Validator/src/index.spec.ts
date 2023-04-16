@@ -1,4 +1,5 @@
 import {
+  CaseValidator,
   DigitValidator,
   LengthValidator,
   PasswordValidator,
@@ -134,6 +135,38 @@ describe("password validator", () => {
       //Assert
       expect(result.result).toBeFalsy();
       expect(result.errors).toContain("Password must contain a digit");
+    });
+  });
+
+  describe("CaseValidator", () => {
+    it("should return error if the password does not contain an uppercase letter", () => {
+      //Arrange
+      const validator = new CaseValidator();
+      const result = new PasswordValidatorResult(true);
+
+      //Act
+      validator.handle("abcdef1", result);
+
+      //Assert
+      expect(result.result).toBeFalsy();
+      expect(result.errors).toContain(
+        "Password must contain an uppercase letter"
+      );
+    });
+
+    it("should return error if the password does not contain a lowercase letter", () => {
+      //Arrange
+      const validator = new CaseValidator();
+      const result = new PasswordValidatorResult(true);
+
+      //Act
+      validator.handle("ABCDEF1", result);
+
+      //Assert
+      expect(result.result).toBeFalsy();
+      expect(result.errors).toContain(
+        "Password must contain a lowercase letter"
+      );
     });
   });
 });
