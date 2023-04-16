@@ -29,6 +29,8 @@ export class PasswordValidator {
   }
 
   public validate(): IPasswordValidatorResult {
-    throw new Error("Not implemented");
+    const result = new PasswordValidatorResult(true);
+
+    return result;
   }
 }
