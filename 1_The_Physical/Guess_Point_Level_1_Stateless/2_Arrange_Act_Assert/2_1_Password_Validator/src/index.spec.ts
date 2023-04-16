@@ -7,6 +7,22 @@ describe("password validator", () => {
       const validator = new PasswordValidator(password);
       expect(validator).toBeInstanceOf(PasswordValidator);
     });
+
+    describe("validate", () => {
+      it("should return a PasswordValidatorResult", () => {
+        const password = "Test password";
+        const validator = new PasswordValidator(password);
+        const result = validator.validate();
+        expect(result).toBeInstanceOf(PasswordValidatorResult);
+      });
+
+      it("should return a PasswordValidatorResult with result true", () => {
+        const password = "Test password1";
+        const validator = new PasswordValidator(password);
+        const result = validator.validate();
+        expect(result.result).toBeTruthy();
+      });
+    });
   });
 
   describe("PasswordValidatorResult", () => {

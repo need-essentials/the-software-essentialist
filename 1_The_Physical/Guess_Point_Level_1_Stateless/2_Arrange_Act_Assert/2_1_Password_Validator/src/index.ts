@@ -27,4 +27,8 @@ export class PasswordValidator {
   constructor(password: string) {
     this.password = password;
   }
+
+  public validate(): IPasswordValidatorResult {
+    throw new Error("Not implemented");
+  }
 }
