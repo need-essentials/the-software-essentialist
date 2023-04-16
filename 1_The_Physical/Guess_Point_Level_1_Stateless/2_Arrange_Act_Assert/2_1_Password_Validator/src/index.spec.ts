@@ -42,6 +42,14 @@ describe("password validator", () => {
           "Password length must be at most 15 characters",
         ]);
       });
+
+      it("should return a PasswordValidatorResult with result false and errors when password does not contain a digit", () => {
+        const password = "Test password";
+        const validator = new PasswordValidator(password);
+        const result = validator.validate();
+        expect(result.result).toBeFalsy();
+        expect(result.errors).toEqual(["Password must contain a digit"]);
+      });
     });
   });
 
