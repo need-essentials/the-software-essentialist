@@ -8,6 +8,7 @@ export class PasswordValidatorResult implements IPasswordValidatorResult {
   errors?: string[];
 
   constructor(result: boolean, errors?: string[]) {
-    throw new Error("Not implemented");
+    this.result = result;
+    this.errors = errors;
   }
 }
