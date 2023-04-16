@@ -1,3 +1,8 @@
+export const hasValidTimeFormat = (time: string): boolean => {
+  const timeFormat = /^([0-9]{2}):([0-9]{2})$/;
+  return timeFormat.test(time);
+};
+
 export const isInRange = (value: number, min: number, max: number): boolean =>
   value >= min && value <= max;
 
