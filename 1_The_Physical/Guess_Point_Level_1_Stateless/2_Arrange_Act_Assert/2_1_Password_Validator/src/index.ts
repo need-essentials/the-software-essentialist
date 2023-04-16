@@ -25,6 +25,6 @@ export class PasswordValidator {
   private password: string;
 
   constructor(password: string) {
-    throw new Error("Not implemented");
+    this.password = password;
   }
 }
