@@ -52,17 +52,13 @@ export class PasswordValidator {
 
   constructor(password: string) {
     this.password = password;
-    this.handler = new LengthValidator();
+    this.handler = new LengthValidator().setNext(new DigitValidator());
   }
 
   public validate(): IPasswordValidatorResult {
     const result = new PasswordValidatorResult(true);
 
     this.handler.handle(this.password, result);
-
-    if (!/\d/.test(this.password)) {
-      result.addError("Password must contain a digit");
-    }
 
     if (!/[A-Z]/.test(this.password)) {
       result.addError("Password must contain an uppercase letter");
