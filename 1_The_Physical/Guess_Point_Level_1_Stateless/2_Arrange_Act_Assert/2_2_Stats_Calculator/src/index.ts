@@ -3,7 +3,17 @@ export const statsCalculator = (
 ): {
   sum: number;
   numberOfElements: number;
+  min: number;
 } => {
-  const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-  return { sum, numberOfElements: numbers.length };
+  const { sum, min } = numbers.reduce(
+    (acc, number) => {
+      return {
+        sum: acc.sum + number,
+        min: acc.min > number ? number : acc.min,
+      };
+    },
+    { sum: 0, min: Infinity }
+  );
+
+  return { sum, numberOfElements: numbers.length, min };
 };

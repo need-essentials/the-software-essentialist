@@ -36,4 +36,22 @@ describe("stats calculator", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  it("should calculate the minimum number", () => {
+    const useCases = [
+      {
+        numbers: [1, 2, 3],
+        expected: 1,
+      },
+      {
+        numbers: [100, 2, 3, 4, 5],
+        expected: 2,
+      },
+    ];
+
+    useCases.forEach(({ numbers, expected }) => {
+      const actual = statsCalculator(numbers).min;
+      expect(actual).toEqual(expected);
+    });
+  });
 });
