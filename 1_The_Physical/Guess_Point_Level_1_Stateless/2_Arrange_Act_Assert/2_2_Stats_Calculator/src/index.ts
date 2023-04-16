@@ -4,16 +4,18 @@ export const statsCalculator = (
   sum: number;
   numberOfElements: number;
   min: number;
+  max: number;
 } => {
-  const { sum, min } = numbers.reduce(
+  const { sum, min, max } = numbers.reduce(
     (acc, number) => {
       return {
         sum: acc.sum + number,
         min: acc.min > number ? number : acc.min,
+        max: acc.max < number ? number : acc.max,
       };
     },
-    { sum: 0, min: Infinity }
+    { sum: 0, min: Infinity, max: -Infinity }
   );
 
-  return { sum, numberOfElements: numbers.length, min };
+  return { sum, numberOfElements: numbers.length, min, max };
 };

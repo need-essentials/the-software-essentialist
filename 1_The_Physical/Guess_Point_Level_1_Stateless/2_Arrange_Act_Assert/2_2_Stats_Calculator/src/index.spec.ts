@@ -54,4 +54,22 @@ describe("stats calculator", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  it("should calculate the maximum number", () => {
+    const useCases = [
+      {
+        numbers: [1, 2, 3],
+        expected: 3,
+      },
+      {
+        numbers: [100, 2, 3, 4, 5],
+        expected: 100,
+      },
+    ];
+
+    useCases.forEach(({ numbers, expected }) => {
+      const actual = statsCalculator(numbers).max;
+      expect(actual).toEqual(expected);
+    });
+  });
 });
