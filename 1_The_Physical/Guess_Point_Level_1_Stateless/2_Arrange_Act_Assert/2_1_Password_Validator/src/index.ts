@@ -43,6 +43,10 @@ export class PasswordValidator {
       result.addError("Password must contain a digit");
     }
 
+    if (!/[A-Z]/.test(this.password)) {
+      result.addError("Password must contain an uppercase letter");
+    }
+
     return result;
   }
 }
