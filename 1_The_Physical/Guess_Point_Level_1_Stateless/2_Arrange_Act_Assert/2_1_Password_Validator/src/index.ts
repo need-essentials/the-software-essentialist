@@ -13,6 +13,10 @@ export class PasswordValidatorResult implements IPasswordValidatorResult {
   }
 
   public addError(...errors: string[]): void {
-    throw new Error("Not implemented");
+    this.result = false;
+    if (!this.errors) {
+      this.errors = [];
+    }
+    this.errors.push(...errors);
   }
 }
