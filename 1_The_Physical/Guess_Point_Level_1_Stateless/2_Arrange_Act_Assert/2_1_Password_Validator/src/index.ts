@@ -39,6 +39,10 @@ export class PasswordValidator {
       result.addError("Password length must be at most 15 characters");
     }
 
+    if (!/\d/.test(this.password)) {
+      result.addError("Password must contain a digit");
+    }
+
     return result;
   }
 }
