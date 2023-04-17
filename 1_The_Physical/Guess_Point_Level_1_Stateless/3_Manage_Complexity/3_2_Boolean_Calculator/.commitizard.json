@@ -1,0 +1,132 @@
+{
+  "version": "0.0.1",
+  "settings": {
+    "maxViewFilesToShow": 5,
+    "excludePaths": [
+      "package-lock.json",
+      "yarn.lock",
+      "yarn-error.log",
+      "pnpm-lock.yaml",
+      "**/yarn.lock",
+      "**/pnpm-lock.yaml",
+      "**/package-lock.json",
+      "**/yarn-error.log",
+      "**/yarn.lock.*",
+      "**/yarn.lock/*.log",
+      "**/.yarn/cache"
+    ]
+  },
+  "conventional": {
+    "commitOptions": {
+      "template": {
+        "type": "{{type}}",
+        "scope": "({{scope}})",
+        "subject": ": {{subject}}",
+        "body": "\n\n{{body}}",
+        "footer": "\n\n{{footer}}",
+        "breaking": "\n\nBREAKING CHANGE:\n {{breaking}}",
+        "refs": "\n\nRefs: {{refs}}"
+      },
+      "templateOrder": [
+        "type",
+        "scope",
+        "subject",
+        "body",
+        "breaking",
+        "footer",
+        "refs"
+      ]
+    },
+    "cliOptions": {
+      "types": [
+        {
+          "value": "feat",
+          "label": "feat: A new feature"
+        },
+        {
+          "value": "fix",
+          "label": "fix: A bug fix"
+        },
+        {
+          "value": "docs",
+          "label": "docs: Documentation only changes"
+        },
+        {
+          "value": "style",
+          "label": "style: Changes that do not affect the meaning of the code"
+        },
+        {
+          "value": "refactor",
+          "label": "refactor: A code change that neither fixes a bug nor adds a feature"
+        },
+        {
+          "value": "perf",
+          "label": "perf: A code change that improves performance"
+        },
+        {
+          "value": "test",
+          "label": "test: Adding missing tests or correcting existing tests"
+        },
+        {
+          "value": "ci",
+          "label": "ci: Changes to our CI configuration files and scripts"
+        },
+        {
+          "value": "chore",
+          "label": "chore: Changes to the build process or auxiliary tools and libraries"
+        }
+      ]
+    }
+  },
+  "redGreenRefactor": {
+    "commitOptions": {
+      "template": {
+        "type": "{{type}}: ",
+        "subject": "{{subject}}",
+        "body": "\n\n{{body}}"
+      },
+      "templateOrder": ["type", "subject", "body"]
+    },
+    "cliOptions": {
+      "types": [
+        {
+          "value": "🔴",
+          "label": "RED: Write a test that fails",
+          "patterns": [
+            "Add failing test for {{feature}}",
+            "Create test for {{feature}} {{testCase}}",
+            "Initialize failing test for {{feature}} {{testCase}}",
+            "Write test that fails for {{feature}} {{testCase}}"
+          ]
+        },
+        {
+          "value": "🟢",
+          "label": "GREEN: Make the test pass",
+          "patterns": [
+            "Implement {{feature}}",
+            "Resolve failing test for {{feature}} {{testCase}}",
+            "Make test pass for {{feature}} {{testCase}}",
+            "Enable passing test for {{feature}} {{testCase}}",
+            "Develop solution for {{feature}} to pass {{testCase}}"
+          ]
+        },
+        {
+          "value": "🔵",
+          "label": "REFACTOR: Refactor the code without changing functionality",
+          "patterns": [
+            "Refactor {{feature}} for {{reason}}",
+            "Revise {{feature}} for {{reason}}",
+            "Extract {{element}} of {{feature}}",
+            "Inline {{element}} of {{feature}}",
+            "Rename {{element}} of {{feature}} to {{newName}}",
+            "Move {{element}} of {{feature}} to {{newLocation}}",
+            "Reorganize {{feature}} for {{reason}}",
+            "Simplify {{feature}} by removing unnecessary {{codeOrLogic}}",
+            "Optimize {{feature}} for {{optimizationReason}}",
+            "Enhance {{feature}} by {{enhancementAction}} for {{enhancementReason}}"
+          ]
+        }
+      ]
+    }
+  }
+}
