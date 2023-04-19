@@ -6,6 +6,7 @@ const BOOLEAN_VALUE = {
 const OPERATOR = {
   NOT: "NOT",
   AND: "AND",
+  OR: "OR",
 };
 
 export const parseBooleanValue = (value: string): boolean => {
@@ -28,4 +29,5 @@ export const unaryOperatorFunctions: Record<string, UnaryOperatorFunction> = {
 
 export const binaryOperatorFunctions: Record<string, BinaryOperatorFunction> = {
   [OPERATOR.AND]: (left, right) => left && right,
+  [OPERATOR.OR]: (left, right) => left || right,
 };

@@ -57,5 +57,27 @@ describe("boolean calculator", () => {
         expect(binaryOperatorFunctions["AND"](false, false)).toBeFalsy();
       });
     });
+
+    describe("OR", () => {
+      it("should return the OR function for 'OR'", () => {
+        expect(binaryOperatorFunctions["OR"]).toBeDefined();
+      });
+
+      it("should return true for true OR true", () => {
+        expect(binaryOperatorFunctions["OR"](true, true)).toBeTruthy();
+      });
+
+      it("should return true for true OR false", () => {
+        expect(binaryOperatorFunctions["OR"](true, false)).toBeTruthy();
+      });
+
+      it("should return true for false OR true", () => {
+        expect(binaryOperatorFunctions["OR"](false, true)).toBeTruthy();
+      });
+
+      it("should return false for false OR false", () => {
+        expect(binaryOperatorFunctions["OR"](false, false)).toBeFalsy();
+      });
+    });
   });
 });
