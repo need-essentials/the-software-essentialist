@@ -1,4 +1,8 @@
-import { parseBooleanValue, unaryOperatorFunctions } from "./index";
+import {
+  binaryOperatorFunctions,
+  parseBooleanValue,
+  unaryOperatorFunctions,
+} from "./index";
 
 describe("boolean calculator", () => {
   describe("parseBooleanValue", () => {
@@ -28,6 +32,30 @@ describe("boolean calculator", () => {
 
     it("should return false for NOT(true)", () => {
       expect(unaryOperatorFunctions["NOT"](true)).toBeFalsy();
+    });
+  });
+
+  describe("binaryOperatorFunctions", () => {
+    describe("AND", () => {
+      it("should return the AND function for 'AND'", () => {
+        expect(binaryOperatorFunctions["AND"]).toBeDefined();
+      });
+
+      it("should return true for true AND true", () => {
+        expect(binaryOperatorFunctions["AND"](true, true)).toBeTruthy();
+      });
+
+      it("should return false for true AND false", () => {
+        expect(binaryOperatorFunctions["AND"](true, false)).toBeFalsy();
+      });
+
+      it("should return false for false AND true", () => {
+        expect(binaryOperatorFunctions["AND"](false, true)).toBeFalsy();
+      });
+
+      it("should return false for false AND false", () => {
+        expect(binaryOperatorFunctions["AND"](false, false)).toBeFalsy();
+      });
     });
   });
 });
