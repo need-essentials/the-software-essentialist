@@ -3,6 +3,10 @@ const BOOLEAN_VALUE = {
   FALSE: "FALSE",
 };
 
+const OPERATOR = {
+  NOT: "NOT",
+};
+
 export const parseBooleanValue = (value: string): boolean => {
   switch (value.toUpperCase()) {
     case BOOLEAN_VALUE.TRUE:
@@ -12,4 +16,10 @@ export const parseBooleanValue = (value: string): boolean => {
     default:
       throw new Error("Invalid boolean value");
   }
+};
+
+type UnaryOperatorFunction = (value: boolean) => boolean;
+
+export const unaryOperatorFunctions: Record<string, UnaryOperatorFunction> = {
+  [OPERATOR.NOT]: (value) => !value,
 };

@@ -1,4 +1,4 @@
-import { parseBooleanValue } from "./index";
+import { parseBooleanValue, unaryOperatorFunctions } from "./index";
 
 describe("boolean calculator", () => {
   describe("parseBooleanValue", () => {
@@ -14,6 +14,20 @@ describe("boolean calculator", () => {
       expect(() => parseBooleanValue("foo")).toThrowError(
         "Invalid boolean value"
       );
+    });
+  });
+
+  describe("unaryOperatorFunctions", () => {
+    it("should return the NOT function for 'NOT'", () => {
+      expect(unaryOperatorFunctions["NOT"]).toBeDefined();
+    });
+
+    it("should return true for NOT(false)", () => {
+      expect(unaryOperatorFunctions["NOT"](false)).toBeTruthy();
+    });
+
+    it("should return false for NOT(true)", () => {
+      expect(unaryOperatorFunctions["NOT"](true)).toBeFalsy();
     });
   });
 });
