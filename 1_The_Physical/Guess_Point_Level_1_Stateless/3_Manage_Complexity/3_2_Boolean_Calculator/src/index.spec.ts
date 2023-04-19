@@ -2,6 +2,7 @@ import {
   binaryOperatorFunctions,
   parseBooleanValue,
   unaryOperatorFunctions,
+  Tokenizer,
 } from "./index";
 
 describe("boolean calculator", () => {
@@ -78,6 +79,18 @@ describe("boolean calculator", () => {
       it("should return false for false OR false", () => {
         expect(binaryOperatorFunctions["OR"](false, false)).toBeFalsy();
       });
+    });
+  });
+
+  describe("Tokenizer", () => {
+    it("should tokenize a simple expression", () => {
+      expect(new Tokenizer("true AND false OR TRUE").tokenize()).toEqual([
+        "true",
+        "AND",
+        "false",
+        "OR",
+        "TRUE",
+      ]);
     });
   });
 });
