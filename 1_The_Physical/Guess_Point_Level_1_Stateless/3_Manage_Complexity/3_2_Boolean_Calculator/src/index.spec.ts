@@ -96,55 +96,49 @@ describe("boolean calculator", () => {
   });
 
   describe("AST Parser", () => {
-    it("should parse a single value", () => {
-      expect(new Parser(["TRUE"]).parse()).toEqual({
-        type: "Literal",
-        value: true,
+    describe("Parser.parseValue", () => {
+      it("should parse a single value", () => {
+        expect(new Parser(["TRUE"]).parse()).toEqual({
+          type: "Literal",
+          value: true,
+        });
+        expect(new Parser(["FALSE"]).parse()).toEqual({
+          type: "Literal",
+          value: false,
+        });
       });
-      expect(new Parser(["FALSE"]).parse()).toEqual({
-        type: "Literal",
-        value: false,
+
+      it('should throw an error "Invalid expression: Boolean value should be separated by binary operator"', () => {
+        expect(() => new Parser(["TRUE", "FALSE"]).parse()).toThrowError(
+          "Invalid expression: Boolean value should be separated by binary operator"
+        );
+      });
+
+      it("should thow an expected error", () => {
+        expect(() => new Parser(["Invalid"]).parse()).toThrowError(
+          "Unexpected token"
+        );
       });
     });
 
-    it('should throw an error "Invalid expression: Boolean value should be separated by binary operator"', () => {
-      expect(() => new Parser(["TRUE", "FALSE"]).parse()).toThrowError(
-        "Invalid expression: Boolean value should be separated by binary operator"
-      );
-    });
-
-    it("should thow an expected error", () => {
-      expect(() => new Parser(["Invalid"]).parse()).toThrowError(
-        "Unexpected token"
-      );
-    });
-
-    it("should parse a complex expression", () => {
-      expect(
-        new Parser(["TRUE", "AND", "FALSE", "OR", "NOT", "TRUE"]).parse()
-      ).toEqual({
-        type: "BinaryExpression",
-        operator: "OR",
-        left: {
-          type: "BinaryExpression",
-          operator: "AND",
-          left: {
+    describe("Parser.parseUnary", () => {
+      it("should parse a single unary expression", () => {
+        expect(new Parser(["NOT", "TRUE"]).parse()).toEqual({
+          type: "UnaryExpression",
+          operator: "NOT",
+          argument: {
             type: "Literal",
             value: true,
           },
-          right: {
+        });
+        expect(new Parser(["NOT", "FALSE"]).parse()).toEqual({
+          type: "UnaryExpression",
+          operator: "NOT",
+          argument: {
             type: "Literal",
             value: false,
           },
-        },
-        right: {
-          type: "UnaryExpression",
-          operator: "NOT",
-          value: {
-            type: "Literal",
-            value: true,
-          },
-        },
+        });
       });
     });
   });

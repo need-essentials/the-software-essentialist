@@ -86,6 +86,17 @@ class LiteralNode implements ASTNode {
   }
 }
 
+class UnaryExpressionNode implements ASTNode {
+  public readonly type = "UnaryExpression";
+  public readonly operator: OPERATOR;
+  public readonly argument: ASTNode;
+
+  constructor(operator: OPERATOR, argument: ASTNode) {
+    this.operator = operator;
+    this.argument = argument;
+  }
+}
+
 export class Parser {
   private tokens: string[];
   private index: number = 0;
@@ -95,6 +106,17 @@ export class Parser {
   }
 
   public parse(): ASTNode {
+    return this.parseUnary();
+  }
+
+  private parseUnary(): ASTNode {
+    const token = this.tokens[this.index];
+    if (token === OPERATOR.NOT) {
+      this.index++;
+      const value: ASTNode = this.parseUnary();
+      return new UnaryExpressionNode(token as OPERATOR, value);
+    }
+
     return this.parseValue();
   }
 
