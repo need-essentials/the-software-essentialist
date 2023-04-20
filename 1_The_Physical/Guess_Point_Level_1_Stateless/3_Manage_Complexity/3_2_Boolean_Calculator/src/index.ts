@@ -9,6 +9,10 @@ const OPERATOR = {
   OR: "OR",
 };
 
+enum TOKEN_SEPARATOR {
+  SPACE = " ",
+}
+
 export const parseBooleanValue = (value: string): boolean => {
   switch (value.toUpperCase()) {
     case BOOLEAN_VALUE.TRUE:
@@ -44,7 +48,7 @@ export class Tokenizer {
     let tokens: any[] = [];
     while (this.index < this.expression.length) {
       const char = this.expression[this.index];
-      if (char === " ") {
+      if (char === TOKEN_SEPARATOR.SPACE) {
         this.index++;
       } else {
         tokens.push(this.readToken());
@@ -59,7 +63,7 @@ export class Tokenizer {
     let token = "";
     while (this.index < this.expression.length) {
       const char = this.expression[this.index];
-      if (char === " ") {
+      if (char === TOKEN_SEPARATOR.SPACE) {
         break;
       }
       token += char;
