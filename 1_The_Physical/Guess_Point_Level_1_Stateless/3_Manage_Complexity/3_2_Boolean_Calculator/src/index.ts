@@ -75,6 +75,7 @@ export class Tokenizer {
 
 export class Parser {
   private tokens: string[];
+  private index: number = 0;
 
   constructor(tokens: string[]) {
     this.tokens = tokens;
@@ -84,8 +85,19 @@ export class Parser {
     type: string;
     value: boolean;
   } {
-    const token = this.tokens[0];
+    const token = this.tokens[this.index];
     if (Object.values(BOOLEAN_VALUE).includes(token as BOOLEAN_VALUE)) {
+      this.index++;
+      if (
+        this.index < this.tokens.length &&
+        Object.values(BOOLEAN_VALUE).includes(
+          this.tokens[this.index] as BOOLEAN_VALUE
+        )
+      ) {
+        throw new Error(
+          "Invalid expression: Boolean value should be separated by binary operator"
+        );
+      }
       return {
         type: "Literal",
         value: parseBooleanValue(token),

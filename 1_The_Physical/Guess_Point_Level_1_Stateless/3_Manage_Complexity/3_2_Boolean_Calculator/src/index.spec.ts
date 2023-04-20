@@ -107,6 +107,12 @@ describe("boolean calculator", () => {
       });
     });
 
+    it('should throw an error "Invalid expression: Boolean value should be separated by binary operator"', () => {
+      expect(() => new Parser(["TRUE", "FALSE"]).parse()).toThrowError(
+        "Invalid expression: Boolean value should be separated by binary operator"
+      );
+    });
+
     it("should thow an expected error", () => {
       expect(() => new Parser(["Invalid"]).parse()).toThrowError(
         "Unexpected token"
