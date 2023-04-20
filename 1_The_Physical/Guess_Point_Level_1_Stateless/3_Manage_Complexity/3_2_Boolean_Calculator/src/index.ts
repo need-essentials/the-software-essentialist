@@ -47,20 +47,24 @@ export class Tokenizer {
       if (char === " ") {
         this.index++;
       } else {
-        let token = "";
-        while (this.index < this.expression.length) {
-          const char = this.expression[this.index];
-          if (char === " ") {
-            break;
-          }
-          token += char;
-          this.index++;
-        }
-        tokens.push(token);
+        tokens.push(this.readToken());
       }
     }
 
     console.log(tokens);
     return tokens;
+  }
+
+  private readToken(): string {
+    let token = "";
+    while (this.index < this.expression.length) {
+      const char = this.expression[this.index];
+      if (char === " ") {
+        break;
+      }
+      token += char;
+      this.index++;
+    }
+    return token;
   }
 }
