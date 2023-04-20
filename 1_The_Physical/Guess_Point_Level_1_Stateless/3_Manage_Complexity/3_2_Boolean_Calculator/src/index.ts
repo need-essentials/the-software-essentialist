@@ -1,13 +1,13 @@
-const BOOLEAN_VALUE = {
-  TRUE: "TRUE",
-  FALSE: "FALSE",
-};
+enum BOOLEAN_VALUE {
+  TRUE = "TRUE",
+  FALSE = "FALSE",
+}
 
-const OPERATOR = {
-  NOT: "NOT",
-  AND: "AND",
-  OR: "OR",
-};
+enum OPERATOR {
+  NOT = "NOT",
+  AND = "AND",
+  OR = "OR",
+}
 
 enum TOKEN_SEPARATOR {
   SPACE = " ",
@@ -70,5 +70,27 @@ export class Tokenizer {
       this.index++;
     }
     return token;
+  }
+}
+
+export class Parser {
+  private tokens: string[];
+
+  constructor(tokens: string[]) {
+    this.tokens = tokens;
+  }
+
+  public parse(): {
+    type: string;
+    value: boolean;
+  } {
+    const token = this.tokens[0];
+    if (Object.values(BOOLEAN_VALUE).includes(token as BOOLEAN_VALUE)) {
+      return {
+        type: "Literal",
+        value: parseBooleanValue(token),
+      };
+    }
+    throw new Error("Unexpected token");
   }
 }

@@ -3,6 +3,7 @@ import {
   parseBooleanValue,
   unaryOperatorFunctions,
   Tokenizer,
+  Parser,
 } from "./index";
 
 describe("boolean calculator", () => {
@@ -91,6 +92,25 @@ describe("boolean calculator", () => {
         "OR",
         "TRUE",
       ]);
+    });
+  });
+
+  describe("AST Parser", () => {
+    it("should parse a single value", () => {
+      expect(new Parser(["TRUE"]).parse()).toEqual({
+        type: "Literal",
+        value: true,
+      });
+      expect(new Parser(["FALSE"]).parse()).toEqual({
+        type: "Literal",
+        value: false,
+      });
+    });
+
+    it("should thow an expected error", () => {
+      expect(() => new Parser(["Invalid"]).parse()).toThrowError(
+        "Unexpected token"
+      );
     });
   });
 });
