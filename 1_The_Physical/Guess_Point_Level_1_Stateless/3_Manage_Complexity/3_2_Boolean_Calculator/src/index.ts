@@ -85,6 +85,13 @@ export class Parser {
     type: string;
     value: boolean;
   } {
+    return this.parseValue();
+  }
+
+  private parseValue(): {
+    type: string;
+    value: boolean;
+  } {
     const token = this.tokens[this.index];
     if (Object.values(BOOLEAN_VALUE).includes(token as BOOLEAN_VALUE)) {
       this.index++;
