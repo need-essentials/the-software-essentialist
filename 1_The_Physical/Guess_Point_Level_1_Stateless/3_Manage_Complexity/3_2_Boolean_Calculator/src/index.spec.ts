@@ -141,5 +141,63 @@ describe("boolean calculator", () => {
         });
       });
     });
+
+    describe("Parser.parseBinary", () => {
+      it("should parse a simple expression", () => {
+        expect(new Parser(["TRUE", "AND", "FALSE"]).parse()).toEqual({
+          type: "BinaryExpression",
+          operator: "AND",
+          left: {
+            type: "Literal",
+            value: true,
+          },
+          right: {
+            type: "Literal",
+            value: false,
+          },
+        });
+      });
+
+      it("should parse a complex expression", () => {
+        expect(
+          new Parser(["TRUE", "AND", "FALSE", "OR", "NOT", "TRUE"]).parse()
+        ).toEqual({
+          type: "BinaryExpression",
+          operator: "OR",
+          left: {
+            type: "BinaryExpression",
+            operator: "AND",
+            left: {
+              type: "Literal",
+              value: true,
+            },
+            right: {
+              type: "Literal",
+              value: false,
+            },
+          },
+          right: {
+            type: "UnaryExpression",
+            operator: "NOT",
+            argument: {
+              type: "Literal",
+              value: true,
+            },
+          },
+        });
+      });
+    });
+
+    it("should throw 'Unexpected token' Error", () => {
+      expect(() => new Parser(["TRUE", "AND"]).parse()).toThrowError(
+        "Unexpected token"
+      );
+    });
+
+    it("should throw 'Invalid expression: Boolean value should be separated by binary operator' Error", () => {
+      expect(() => new Parser(["TRUE", "TRUE"]).parse()).toThrowError(
+        "Invalid expression: Boolean value should be separated by binary operator"
+      );
+    });
   });
 });

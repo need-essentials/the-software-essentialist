@@ -97,6 +97,19 @@ class UnaryExpressionNode implements ASTNode {
   }
 }
 
+class BinaryExpressionNode implements ASTNode {
+  public readonly type = "BinaryExpression";
+  public readonly operator: OPERATOR;
+  public readonly left: ASTNode;
+  public readonly right: ASTNode;
+
+  constructor(operator: OPERATOR, left: ASTNode, right: ASTNode) {
+    this.operator = operator;
+    this.left = left;
+    this.right = right;
+  }
+}
+
 export class Parser {
   private tokens: string[];
   private index: number = 0;
@@ -106,7 +119,22 @@ export class Parser {
   }
 
   public parse(): ASTNode {
-    return this.parseUnary();
+    let left = this.parseUnary();
+
+    while (this.index < this.tokens.length) {
+      const operator = this.tokens[this.index];
+      if (!Object.values(OPERATOR).includes(operator as OPERATOR)) break;
+
+      this.index++;
+      left = this.parseBinary(left, operator as OPERATOR);
+    }
+
+    return left;
+  }
+
+  private parseBinary(left: ASTNode, operator: OPERATOR): ASTNode {
+    const right = this.parseUnary();
+    return new BinaryExpressionNode(operator, left, right);
   }
 
   private parseUnary(): ASTNode {
