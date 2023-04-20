@@ -38,6 +38,8 @@ export const binaryOperatorFunctions: Record<string, BinaryOperatorFunction> = {
   [OPERATOR.OR]: (left, right) => left || right,
 };
 
+type Token = string | Token[];
+
 export class Tokenizer {
   private index: number = 0;
   private expression: string;
@@ -46,8 +48,8 @@ export class Tokenizer {
     this.expression = expression;
   }
 
-  public tokenize(): any[] {
-    let tokens: any[] = [];
+  public tokenize(): Token[] {
+    let tokens: Token[] = [];
     while (this.index < this.expression.length) {
       const char = this.expression[this.index];
       if (char === TOKEN_SEPARATOR.SPACE) {
