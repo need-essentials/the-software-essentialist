@@ -118,5 +118,34 @@ describe("boolean calculator", () => {
         "Unexpected token"
       );
     });
+
+    it("should parse a complex expression", () => {
+      expect(
+        new Parser(["TRUE", "AND", "FALSE", "OR", "NOT", "TRUE"]).parse()
+      ).toEqual({
+        type: "BinaryExpression",
+        operator: "OR",
+        left: {
+          type: "BinaryExpression",
+          operator: "AND",
+          left: {
+            type: "Literal",
+            value: true,
+          },
+          right: {
+            type: "Literal",
+            value: false,
+          },
+        },
+        right: {
+          type: "UnaryExpression",
+          operator: "NOT",
+          value: {
+            type: "Literal",
+            value: true,
+          },
+        },
+      });
+    });
   });
 });

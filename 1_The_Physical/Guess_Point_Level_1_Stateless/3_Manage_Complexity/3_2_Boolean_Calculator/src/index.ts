@@ -73,6 +73,19 @@ export class Tokenizer {
   }
 }
 
+interface ASTNode {
+  type: string;
+}
+
+class LiteralNode implements ASTNode {
+  public readonly type = "Literal";
+  public readonly value: boolean;
+
+  constructor(value: boolean) {
+    this.value = value;
+  }
+}
+
 export class Parser {
   private tokens: string[];
   private index: number = 0;
@@ -81,17 +94,11 @@ export class Parser {
     this.tokens = tokens;
   }
 
-  public parse(): {
-    type: string;
-    value: boolean;
-  } {
+  public parse(): ASTNode {
     return this.parseValue();
   }
 
-  private parseValue(): {
-    type: string;
-    value: boolean;
-  } {
+  private parseValue(): LiteralNode {
     const token = this.tokens[this.index];
     if (Object.values(BOOLEAN_VALUE).includes(token as BOOLEAN_VALUE)) {
       this.index++;
@@ -105,10 +112,7 @@ export class Parser {
           "Invalid expression: Boolean value should be separated by binary operator"
         );
       }
-      return {
-        type: "Literal",
-        value: parseBooleanValue(token),
-      };
+      return new LiteralNode(parseBooleanValue(token));
     }
     throw new Error("Unexpected token");
   }
