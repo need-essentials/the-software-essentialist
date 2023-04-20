@@ -11,6 +11,8 @@ enum OPERATOR {
 
 enum TOKEN_SEPARATOR {
   SPACE = " ",
+  OPEN_PARENTHESIS = "(",
+  CLOSE_PARENTHESIS = ")",
 }
 
 export const parseBooleanValue = (value: string): boolean => {
@@ -50,6 +52,13 @@ export class Tokenizer {
       const char = this.expression[this.index];
       if (char === TOKEN_SEPARATOR.SPACE) {
         this.index++;
+      } else if (char === TOKEN_SEPARATOR.OPEN_PARENTHESIS) {
+        this.index++;
+        const nestedTokens = this.tokenize();
+        tokens.push(nestedTokens);
+      } else if (char === TOKEN_SEPARATOR.CLOSE_PARENTHESIS) {
+        this.index++;
+        return tokens;
       } else {
         tokens.push(this.readToken());
       }
@@ -63,9 +72,8 @@ export class Tokenizer {
     let token = "";
     while (this.index < this.expression.length) {
       const char = this.expression[this.index];
-      if (char === TOKEN_SEPARATOR.SPACE) {
+      if (Object.values(TOKEN_SEPARATOR).includes(char as TOKEN_SEPARATOR))
         break;
-      }
       token += char;
       this.index++;
     }

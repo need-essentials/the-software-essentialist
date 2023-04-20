@@ -93,6 +93,13 @@ describe("boolean calculator", () => {
         "TRUE",
       ]);
     });
+
+    it("should tokenize a simple expression with parenthesis", () => {
+      expect(new Tokenizer("NOT (true AND false)").tokenize()).toEqual([
+        "NOT",
+        ["true", "AND", "false"],
+      ]);
+    });
   });
 
   describe("AST Parser", () => {
