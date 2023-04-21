@@ -209,3 +209,16 @@ export class Evaluator {
     return binaryOperatorFunctions[node.operator](left, right);
   }
 }
+
+export class BooleanCalculator {
+  private ast: ASTNode;
+
+  constructor(expression: string) {
+    const tokens = new Tokenizer(expression).tokenize();
+    this.ast = new Parser(tokens).parse();
+  }
+
+  public evaluate(): boolean {
+    return Evaluator.evaluate(this.ast);
+  }
+}
