@@ -1,4 +1,5 @@
 import {
+  Evaluator,
   Parser,
   Tokenizer,
   binaryOperatorFunctions,
@@ -178,6 +179,29 @@ describe("boolean calculator", () => {
           },
         },
       });
+    });
+  });
+
+  describe("Evaluator", () => {
+    const evaluateExpression = (expression: string) => {
+      const tokenizer = new Tokenizer(expression);
+      const tokens = tokenizer.tokenize();
+      const parser = new Parser(tokens);
+      const ast = parser.parse();
+      return Evaluator.evaluate(ast);
+    };
+
+    it("should evaluate a simple expression", () => {
+      expect(evaluateExpression("TRUE")).toBeTruthy();
+      expect(evaluateExpression("FALSE")).toBeFalsy();
+    });
+
+    it("should throw an error for an invalid expression", () => {
+      expect(() =>
+        Evaluator.evaluate({
+          type: "NotAValidExpression",
+        })
+      ).toThrowError("Invalid node type");
     });
   });
 });

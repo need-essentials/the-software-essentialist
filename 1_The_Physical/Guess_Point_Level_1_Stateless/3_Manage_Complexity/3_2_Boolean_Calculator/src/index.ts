@@ -181,3 +181,16 @@ export class Parser {
     throw new Error("Unexpected token");
   }
 }
+
+export class Evaluator {
+  private constructor() {}
+
+  public static evaluate(node: ASTNode): boolean {
+    switch (node.type) {
+      case "Literal":
+        return (node as LiteralNode).value;
+      default:
+        throw new Error("Invalid node type");
+    }
+  }
+}
