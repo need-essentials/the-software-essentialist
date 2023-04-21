@@ -145,5 +145,39 @@ describe("boolean calculator", () => {
         right: { type: "Literal", value: false },
       });
     });
+
+    it("nested expression", () => {
+      const ast = parseExpression("TRUE AND (FALSE OR TRUE)");
+      expect(ast).toEqual({
+        type: "BinaryExpression",
+        operator: "AND",
+        left: { type: "Literal", value: true },
+        right: {
+          type: "BinaryExpression",
+          operator: "OR",
+          left: { type: "Literal", value: false },
+          right: { type: "Literal", value: true },
+        },
+      });
+    });
+
+    it("complex expression", () => {
+      const ast = parseExpression("NOT (TRUE AND (FALSE OR TRUE))");
+      expect(ast).toEqual({
+        type: "UnaryExpression",
+        operator: "NOT",
+        argument: {
+          type: "BinaryExpression",
+          operator: "AND",
+          left: { type: "Literal", value: true },
+          right: {
+            type: "BinaryExpression",
+            operator: "OR",
+            left: { type: "Literal", value: false },
+            right: { type: "Literal", value: true },
+          },
+        },
+      });
+    });
   });
 });

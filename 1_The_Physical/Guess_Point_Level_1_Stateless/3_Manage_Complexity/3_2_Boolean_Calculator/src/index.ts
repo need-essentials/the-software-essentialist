@@ -121,10 +121,10 @@ class BinaryExpressionNode implements ASTNode {
 }
 
 export class Parser {
-  private tokens: string[];
+  private tokens: Token[];
   private index: number = 0;
 
-  constructor(tokens: string[]) {
+  constructor(tokens: Token[]) {
     this.tokens = tokens;
   }
 
@@ -158,7 +158,7 @@ export class Parser {
     return this.parseValue();
   }
 
-  private parseValue(): LiteralNode {
+  private parseValue(): ASTNode {
     const token = this.tokens[this.index];
     if (Object.values(BOOLEAN_VALUE).includes(token as BOOLEAN_VALUE)) {
       this.index++;
@@ -172,7 +172,11 @@ export class Parser {
           "Invalid expression: Boolean value should be separated by binary operator"
         );
       }
-      return new LiteralNode(parseBooleanValue(token));
+      return new LiteralNode(parseBooleanValue(token as BOOLEAN_VALUE));
+    } else if (Array.isArray(token)) {
+      this.index++;
+      const parser = new Parser(token);
+      return parser.parse();
     }
     throw new Error("Unexpected token");
   }
