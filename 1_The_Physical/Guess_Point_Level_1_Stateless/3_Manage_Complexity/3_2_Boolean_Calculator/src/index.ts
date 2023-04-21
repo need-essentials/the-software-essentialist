@@ -1,47 +1,14 @@
 import { BOOLEAN_VALUE, OPERATOR, TOKEN_SEPARATOR } from "./enums";
 import { Token, Tokenizer } from "./parser";
+import { ASTNode } from "./parser/ast_nodes/ast_node";
+import { BinaryExpressionNode } from "./parser/ast_nodes/binary_expression_node";
+import { LiteralNode } from "./parser/ast_nodes/literal_node";
+import { UnaryExpressionNode } from "./parser/ast_nodes/unary_expression_node";
 import {
   binaryOperatorFunctions,
   parseBooleanValue,
   unaryOperatorFunctions,
 } from "./utils";
-
-interface ASTNode {
-  type: string;
-}
-
-class LiteralNode implements ASTNode {
-  public readonly type = "Literal";
-  public readonly value: boolean;
-
-  constructor(value: boolean) {
-    this.value = value;
-  }
-}
-
-class UnaryExpressionNode implements ASTNode {
-  public readonly type = "UnaryExpression";
-  public readonly operator: OPERATOR;
-  public readonly argument: ASTNode;
-
-  constructor(operator: OPERATOR, argument: ASTNode) {
-    this.operator = operator;
-    this.argument = argument;
-  }
-}
-
-class BinaryExpressionNode implements ASTNode {
-  public readonly type = "BinaryExpression";
-  public readonly operator: OPERATOR;
-  public readonly left: ASTNode;
-  public readonly right: ASTNode;
-
-  constructor(operator: OPERATOR, left: ASTNode, right: ASTNode) {
-    this.operator = operator;
-    this.left = left;
-    this.right = right;
-  }
-}
 
 export class Parser {
   private tokens: Token[];
