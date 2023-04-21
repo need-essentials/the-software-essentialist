@@ -4,24 +4,9 @@ import {
   Parser,
   Tokenizer,
   binaryOperatorFunctions,
-  unaryOperatorFunctions,
 } from "./index";
 
 describe("boolean calculator", () => {
-  describe("unaryOperatorFunctions", () => {
-    it("should return the NOT function for 'NOT'", () => {
-      expect(unaryOperatorFunctions["NOT"]).toBeDefined();
-    });
-
-    it("should return true for NOT(false)", () => {
-      expect(unaryOperatorFunctions["NOT"](false)).toBeTruthy();
-    });
-
-    it("should return false for NOT(true)", () => {
-      expect(unaryOperatorFunctions["NOT"](true)).toBeFalsy();
-    });
-  });
-
   describe("binaryOperatorFunctions", () => {
     describe("AND", () => {
       it("should return the AND function for 'AND'", () => {
