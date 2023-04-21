@@ -1,12 +1,9 @@
 import { BOOLEAN_VALUE, OPERATOR, TOKEN_SEPARATOR } from "./enums";
-import { parseBooleanValue, unaryOperatorFunctions } from "./utils";
-
-type BinaryOperatorFunction = (left: boolean, right: boolean) => boolean;
-
-export const binaryOperatorFunctions: Record<string, BinaryOperatorFunction> = {
-  [OPERATOR.AND]: (left, right) => left && right,
-  [OPERATOR.OR]: (left, right) => left || right,
-};
+import {
+  binaryOperatorFunctions,
+  parseBooleanValue,
+  unaryOperatorFunctions,
+} from "./utils";
 
 type Token = string | Token[];
 

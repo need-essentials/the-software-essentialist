@@ -1,58 +1,6 @@
-import {
-  BooleanCalculator,
-  Evaluator,
-  Parser,
-  Tokenizer,
-  binaryOperatorFunctions,
-} from "./index";
+import { BooleanCalculator, Evaluator, Parser, Tokenizer } from "./index";
 
 describe("boolean calculator", () => {
-  describe("binaryOperatorFunctions", () => {
-    describe("AND", () => {
-      it("should return the AND function for 'AND'", () => {
-        expect(binaryOperatorFunctions["AND"]).toBeDefined();
-      });
-
-      it("should return true for true AND true", () => {
-        expect(binaryOperatorFunctions["AND"](true, true)).toBeTruthy();
-      });
-
-      it("should return false for true AND false", () => {
-        expect(binaryOperatorFunctions["AND"](true, false)).toBeFalsy();
-      });
-
-      it("should return false for false AND true", () => {
-        expect(binaryOperatorFunctions["AND"](false, true)).toBeFalsy();
-      });
-
-      it("should return false for false AND false", () => {
-        expect(binaryOperatorFunctions["AND"](false, false)).toBeFalsy();
-      });
-    });
-
-    describe("OR", () => {
-      it("should return the OR function for 'OR'", () => {
-        expect(binaryOperatorFunctions["OR"]).toBeDefined();
-      });
-
-      it("should return true for true OR true", () => {
-        expect(binaryOperatorFunctions["OR"](true, true)).toBeTruthy();
-      });
-
-      it("should return true for true OR false", () => {
-        expect(binaryOperatorFunctions["OR"](true, false)).toBeTruthy();
-      });
-
-      it("should return true for false OR true", () => {
-        expect(binaryOperatorFunctions["OR"](false, true)).toBeTruthy();
-      });
-
-      it("should return false for false OR false", () => {
-        expect(binaryOperatorFunctions["OR"](false, false)).toBeFalsy();
-      });
-    });
-  });
-
   describe("Tokenizer", () => {
     it("should tokenize a simple expression", () => {
       expect(new Tokenizer("true AND false OR TRUE").tokenize()).toEqual([
