@@ -1,19 +1,4 @@
-enum BOOLEAN_VALUE {
-  TRUE = "TRUE",
-  FALSE = "FALSE",
-}
-
-enum OPERATOR {
-  NOT = "NOT",
-  AND = "AND",
-  OR = "OR",
-}
-
-enum TOKEN_SEPARATOR {
-  SPACE = " ",
-  OPEN_PARENTHESIS = "(",
-  CLOSE_PARENTHESIS = ")",
-}
+import { BOOLEAN_VALUE, OPERATOR, TOKEN_SEPARATOR } from "./enums";
 
 export const parseBooleanValue = (value: string): boolean => {
   switch (value.toUpperCase()) {
