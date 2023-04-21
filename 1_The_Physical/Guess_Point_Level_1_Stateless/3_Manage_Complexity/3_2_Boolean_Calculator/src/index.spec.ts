@@ -196,6 +196,11 @@ describe("boolean calculator", () => {
       expect(evaluateExpression("FALSE")).toBeFalsy();
     });
 
+    it("should evaluate a NOT expression", () => {
+      expect(evaluateExpression("NOT TRUE")).toBeFalsy();
+      expect(evaluateExpression("NOT FALSE")).toBeTruthy();
+    });
+
     it("should throw an error for an invalid expression", () => {
       expect(() =>
         Evaluator.evaluate({

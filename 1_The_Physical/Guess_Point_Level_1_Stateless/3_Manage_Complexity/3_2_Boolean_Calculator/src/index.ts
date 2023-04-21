@@ -189,8 +189,15 @@ export class Evaluator {
     switch (node.type) {
       case "Literal":
         return (node as LiteralNode).value;
+      case "UnaryExpression":
+        return this.evaluateUnaryExpression(node as UnaryExpressionNode);
       default:
         throw new Error("Invalid node type");
     }
+  }
+
+  private static evaluateUnaryExpression(node: UnaryExpressionNode): boolean {
+    const argument = this.evaluate(node.argument);
+    return unaryOperatorFunctions[node.operator](argument);
   }
 }
