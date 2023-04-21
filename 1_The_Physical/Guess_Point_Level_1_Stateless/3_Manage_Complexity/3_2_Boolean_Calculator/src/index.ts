@@ -191,6 +191,8 @@ export class Evaluator {
         return (node as LiteralNode).value;
       case "UnaryExpression":
         return this.evaluateUnaryExpression(node as UnaryExpressionNode);
+      case "BinaryExpression":
+        return this.evaluateBinaryExpression(node as BinaryExpressionNode);
       default:
         throw new Error("Invalid node type");
     }
@@ -199,5 +201,11 @@ export class Evaluator {
   private static evaluateUnaryExpression(node: UnaryExpressionNode): boolean {
     const argument = this.evaluate(node.argument);
     return unaryOperatorFunctions[node.operator](argument);
+  }
+
+  private static evaluateBinaryExpression(node: BinaryExpressionNode): boolean {
+    const left = this.evaluate(node.left);
+    const right = this.evaluate(node.right);
+    return binaryOperatorFunctions[node.operator](left, right);
   }
 }
