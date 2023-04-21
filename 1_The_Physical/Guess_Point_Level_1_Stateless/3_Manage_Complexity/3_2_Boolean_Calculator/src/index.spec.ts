@@ -1,25 +1,7 @@
-import { BooleanCalculator, Evaluator, Parser, Tokenizer } from "./index";
+import { BooleanCalculator, Evaluator, Parser } from "./index";
+import { Tokenizer } from "./parser";
 
 describe("boolean calculator", () => {
-  describe("Tokenizer", () => {
-    it("should tokenize a simple expression", () => {
-      expect(new Tokenizer("true AND false OR TRUE").tokenize()).toEqual([
-        "true",
-        "AND",
-        "false",
-        "OR",
-        "TRUE",
-      ]);
-    });
-
-    it("should tokenize a simple expression with parenthesis", () => {
-      expect(new Tokenizer("NOT (true AND false)").tokenize()).toEqual([
-        "NOT",
-        ["true", "AND", "false"],
-      ]);
-    });
-  });
-
   describe("Parser", () => {
     const parseExpression = (expression: string) => {
       const tokenizer = new Tokenizer(expression);
