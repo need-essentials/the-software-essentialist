@@ -3,10 +3,8 @@ import { Tokenizer } from "./tokenizer";
 
 describe("Parser", () => {
   const parseExpression = (expression: string) => {
-    const tokenizer = new Tokenizer(expression);
-    const tokens = tokenizer.tokenize();
-    const parser = new Parser(tokens);
-    return parser.parse();
+    const tokens = Tokenizer.tokenize(expression);
+    return Parser.parse(tokens);
   };
 
   it("simple true and false values", () => {

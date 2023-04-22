@@ -5,7 +5,7 @@ export class BooleanCalculator {
 
   public static evaluate(expression: string): boolean {
     const tokens = Tokenizer.tokenize(expression);
-    const ast = new Parser(tokens).parse();
+    const ast = Parser.parse(tokens);
     return Evaluator.evaluate(ast);
   }
 }

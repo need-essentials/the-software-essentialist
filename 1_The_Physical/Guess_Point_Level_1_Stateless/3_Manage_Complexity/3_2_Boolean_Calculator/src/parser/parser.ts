@@ -7,62 +7,86 @@ import { UnaryExpressionNode } from "./ast_nodes/unary_expression_node";
 import { Token } from "./tokenizer";
 
 export class Parser {
-  private tokens: Token[];
-  private index: number = 0;
+  private constructor() {}
 
-  constructor(tokens: Token[]) {
-    this.tokens = tokens;
+  public static parse(tokens: Token[]): ASTNode {
+    return Parser.parseExpression(tokens, 0).node;
   }
 
-  public parse(): ASTNode {
-    let left = this.parseUnary();
+  private static parseExpression(
+    tokens: Token[],
+    index: number
+  ): { node: ASTNode; newIndex: number } {
+    let { node: left, newIndex: currentIndex } = Parser.parseUnary(
+      tokens,
+      index
+    );
 
-    while (this.index < this.tokens.length) {
-      const operator = this.tokens[this.index];
+    while (currentIndex < tokens.length) {
+      const operator = tokens[currentIndex];
       if (!Object.values(OPERATOR).includes(operator as OPERATOR)) break;
 
-      this.index++;
-      left = this.parseBinary(left, operator as OPERATOR);
+      currentIndex++;
+      ({ node: left, newIndex: currentIndex } = Parser.parseBinary(
+        tokens,
+        currentIndex,
+        left,
+        operator as OPERATOR
+      ));
     }
 
-    return left;
+    return { node: left, newIndex: currentIndex };
   }
 
-  private parseBinary(left: ASTNode, operator: OPERATOR): ASTNode {
-    const right = this.parseUnary();
-    return new BinaryExpressionNode(operator, left, right);
+  private static parseBinary(
+    tokens: Token[],
+    index: number,
+    left: ASTNode,
+    operator: OPERATOR
+  ): { node: ASTNode; newIndex: number } {
+    const { node: right, newIndex } = Parser.parseUnary(tokens, index);
+    return { node: new BinaryExpressionNode(operator, left, right), newIndex };
   }
 
-  private parseUnary(): ASTNode {
-    const token = this.tokens[this.index];
+  private static parseUnary(
+    tokens: Token[],
+    index: number
+  ): { node: ASTNode; newIndex: number } {
+    const token = tokens[index];
     if (token === OPERATOR.NOT) {
-      this.index++;
-      const value: ASTNode = this.parseUnary();
-      return new UnaryExpressionNode(token as OPERATOR, value);
+      const { node: value, newIndex } = Parser.parseUnary(tokens, index + 1);
+      return {
+        node: new UnaryExpressionNode(token as OPERATOR, value),
+        newIndex,
+      };
     }
 
-    return this.parseValue();
+    return Parser.parseValue(tokens, index);
   }
 
-  private parseValue(): ASTNode {
-    const token = this.tokens[this.index];
+  private static parseValue(
+    tokens: Token[],
+    index: number
+  ): { node: ASTNode; newIndex: number } {
+    const token = tokens[index];
     if (Object.values(BOOLEAN_VALUE).includes(token as BOOLEAN_VALUE)) {
-      this.index++;
+      index++;
       if (
-        this.index < this.tokens.length &&
-        Object.values(BOOLEAN_VALUE).includes(
-          this.tokens[this.index] as BOOLEAN_VALUE
-        )
+        index < tokens.length &&
+        Object.values(BOOLEAN_VALUE).includes(tokens[index] as BOOLEAN_VALUE)
       ) {
         throw new Error(
           "Invalid expression: Boolean value should be separated by binary operator"
         );
       }
-      return new LiteralNode(parseBooleanValue(token as BOOLEAN_VALUE));
+      return {
+        node: new LiteralNode(parseBooleanValue(token as BOOLEAN_VALUE)),
+        newIndex: index,
+      };
     } else if (Array.isArray(token)) {
-      this.index++;
-      const parser = new Parser(token);
-      return parser.parse();
+      index++;
+      const node = Parser.parse(token);
+      return { node, newIndex: index };
     }
     throw new Error("Unexpected token");
   }

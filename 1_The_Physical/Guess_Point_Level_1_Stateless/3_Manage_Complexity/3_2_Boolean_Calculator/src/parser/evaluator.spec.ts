@@ -4,10 +4,8 @@ import { Evaluator } from "./evaluator";
 
 describe("Evaluator", () => {
   const evaluateExpression = (expression: string) => {
-    const tokenizer = new Tokenizer(expression);
-    const tokens = tokenizer.tokenize();
-    const parser = new Parser(tokens);
-    const ast = parser.parse();
+    const tokens = Tokenizer.tokenize(expression);
+    const ast = Parser.parse(tokens);
     return Evaluator.evaluate(ast);
   };
 
