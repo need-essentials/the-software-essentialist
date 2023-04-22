@@ -55,10 +55,8 @@ export function passwordValidator(
     caseValidator,
   ]
 ): IPasswordValidatorResult {
-  let errors: string[] = [];
-  for (const validator of validators) {
-    errors = validator(password, errors);
-  }
+  const pipedHandlers = pipe(validators);
+  const errors = pipedHandlers(password, []);
 
   return {
     result: errors.length === 0,
