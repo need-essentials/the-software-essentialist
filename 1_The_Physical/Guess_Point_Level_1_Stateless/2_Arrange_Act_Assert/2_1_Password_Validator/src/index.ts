@@ -8,15 +8,18 @@ export interface IPasswordValidatorResult {
   errors?: string[];
 }
 
-export class LengthValidator extends AbstractPasswordValidatorHandler {
-  handle(password: string, result: PasswordValidatorResult): void {
-    if (password.length < 5) {
-      result.addError("Password length must be at least 5 characters");
-    } else if (password.length > 15) {
-      result.addError("Password length must be at most 15 characters");
-    }
-    super.handle(password, result);
+export type PasswordValidatorHandler = (
+  password: string,
+  errors: string[]
+) => string[];
+
+export function lengthValidator(password: string, errors: string[]): string[] {
+  if (password.length < 5) {
+    return [...errors, "Password length must be at least 5 characters"];
+  } else if (password.length > 15) {
+    return [...errors, "Password length must be at most 15 characters"];
   }
+  return errors;
 }
 
 export class DigitValidator extends AbstractPasswordValidatorHandler {
@@ -65,9 +68,7 @@ export class PasswordValidator {
 
   constructor(password: string) {
     this.password = password;
-    this.handler = new LengthValidator()
-      .setNext(new DigitValidator())
-      .setNext(new CaseValidator());
+    this.handler = new DigitValidator().setNext(new CaseValidator());
   }
 
   public validate(): IPasswordValidatorResult {
