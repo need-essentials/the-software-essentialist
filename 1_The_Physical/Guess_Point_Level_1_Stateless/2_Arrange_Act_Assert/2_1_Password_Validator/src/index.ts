@@ -36,6 +36,17 @@ function caseValidator(password: string, errors: string[]): string[] {
   return [...errors, ...newErrors];
 }
 
+export function pipe(
+  validators: PasswordValidatorHandler[]
+): (password: string, errors: string[]) => string[] {
+  return (password: string, errors: string[]) => {
+    return validators.reduce(
+      (accErrors, validator) => validator(password, accErrors),
+      errors
+    );
+  };
+}
+
 export function passwordValidator(
   password: string,
   validators: PasswordValidatorHandler[] = [

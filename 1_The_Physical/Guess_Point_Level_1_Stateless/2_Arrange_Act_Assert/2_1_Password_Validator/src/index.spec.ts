@@ -1,4 +1,4 @@
-import { passwordValidator } from "./index";
+import { PasswordValidatorHandler, passwordValidator, pipe } from "./index";
 
 describe("password validator", () => {
   it("should return true if the password is valid", () => {
@@ -58,5 +58,33 @@ describe("password validator", () => {
       expect(validation.result).toBe(false);
       expect(validation.errors).toEqual(errors);
     }
+  });
+
+  describe("pipe", () => {
+    it("should return a function", () => {
+      //Arrange
+      const validators: PasswordValidatorHandler[] = [];
+
+      //Act
+      const result = pipe(validators);
+
+      //Assert
+      expect(typeof result).toBe("function");
+    });
+
+    it("should return a function that returns the errors", () => {
+      //Arrange
+      const validators = [
+        (password: string, errors: string[]) => [...errors, "test"],
+      ];
+      const password = "test";
+      const errors: string[] = [];
+
+      //Act
+      const result = pipe(validators)(password, errors);
+
+      //Assert
+      expect(result).toEqual(["test"]);
+    });
   });
 });
