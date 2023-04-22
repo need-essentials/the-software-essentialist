@@ -1,6 +1,6 @@
 import {
   CaseValidator,
-  DigitValidator,
+  digitValidator,
   PasswordValidator,
   PasswordValidatorResult,
   lengthValidator,
@@ -90,18 +90,29 @@ describe("password validator", () => {
     });
   });
 
-  describe("DigitValidator", () => {
+  describe("digitValidator", () => {
     it("should return error if the password does not contain a digit", () => {
       //Arrange
-      const validator = new DigitValidator();
-      const result = new PasswordValidatorResult(true);
+      const password = "abcdef";
+      const errors: string[] = [];
 
       //Act
-      validator.handle("Abcdef", result);
+      const result = digitValidator(password, errors);
 
       //Assert
-      expect(result.result).toBeFalsy();
-      expect(result.errors).toContain("Password must contain a digit");
+      expect(result).toContain("Password must contain a digit");
+    });
+
+    it("should not return error if the password contains a digit", () => {
+      //Arrange
+      const password = "abcdef1";
+      const errors: string[] = [];
+
+      //Act
+      const result = digitValidator(password, errors);
+
+      //Assert
+      expect(result).not.toContain("Password must contain a digit");
     });
   });
 

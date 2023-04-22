@@ -22,13 +22,11 @@ export function lengthValidator(password: string, errors: string[]): string[] {
   return errors;
 }
 
-export class DigitValidator extends AbstractPasswordValidatorHandler {
-  handle(password: string, result: PasswordValidatorResult): void {
-    if (!/[0-9]/.test(password)) {
-      result.addError("Password must contain a digit");
-    }
-    super.handle(password, result);
+export function digitValidator(password: string, errors: string[]): string[] {
+  if (!/[0-9]/.test(password)) {
+    return [...errors, "Password must contain a digit"];
   }
+  return errors;
 }
 
 export class CaseValidator extends AbstractPasswordValidatorHandler {
@@ -68,7 +66,7 @@ export class PasswordValidator {
 
   constructor(password: string) {
     this.password = password;
-    this.handler = new DigitValidator().setNext(new CaseValidator());
+    this.handler = new CaseValidator();
   }
 
   public validate(): IPasswordValidatorResult {
