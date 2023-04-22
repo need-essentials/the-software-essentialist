@@ -3,44 +3,54 @@ import { TOKEN_SEPARATOR } from "../enums";
 export type Token = string | Token[];
 
 export class Tokenizer {
-  private index: number = 0;
-  private expression: string;
+  private constructor() {}
 
-  constructor(expression: string) {
-    this.expression = expression.toUpperCase();
+  public static tokenize(expression: string): Token[] {
+    return Tokenizer.tokenizeExpression(expression.toUpperCase(), 0).tokens;
   }
 
-  public tokenize(): Token[] {
+  private static tokenizeExpression(
+    expression: string,
+    index: number
+  ): { tokens: Token[]; newIndex: number } {
     let tokens: Token[] = [];
-    while (this.index < this.expression.length) {
-      const char = this.expression[this.index];
+    while (index < expression.length) {
+      const char = expression[index];
       if (char === TOKEN_SEPARATOR.SPACE) {
-        this.index++;
+        index++;
       } else if (char === TOKEN_SEPARATOR.OPEN_PARENTHESIS) {
-        this.index++;
-        const nestedTokens = this.tokenize();
+        index++;
+        const { tokens: nestedTokens, newIndex } = Tokenizer.tokenizeExpression(
+          expression,
+          index
+        );
         tokens.push(nestedTokens);
+        index = newIndex;
       } else if (char === TOKEN_SEPARATOR.CLOSE_PARENTHESIS) {
-        this.index++;
-        return tokens;
+        index++;
+        return { tokens, newIndex: index };
       } else {
-        tokens.push(this.readToken());
+        const { token, newIndex } = Tokenizer.readToken(expression, index);
+        tokens.push(token);
+        index = newIndex;
       }
     }
 
-    console.log(tokens);
-    return tokens;
+    return { tokens, newIndex: index };
   }
 
-  private readToken(): string {
+  private static readToken(
+    expression: string,
+    index: number
+  ): { token: string; newIndex: number } {
     let token = "";
-    while (this.index < this.expression.length) {
-      const char = this.expression[this.index];
+    while (index < expression.length) {
+      const char = expression[index];
       if (Object.values(TOKEN_SEPARATOR).includes(char as TOKEN_SEPARATOR))
         break;
       token += char;
-      this.index++;
+      index++;
     }
-    return token;
+    return { token, newIndex: index };
   }
 }
