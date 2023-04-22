@@ -8,7 +8,7 @@ export type PasswordValidatorHandler = (
   errors: string[]
 ) => string[];
 
-export function lengthValidator(password: string, errors: string[]): string[] {
+function lengthValidator(password: string, errors: string[]): string[] {
   if (password.length < 5) {
     return [...errors, "Password length must be at least 5 characters"];
   } else if (password.length > 15) {
@@ -17,14 +17,14 @@ export function lengthValidator(password: string, errors: string[]): string[] {
   return errors;
 }
 
-export function digitValidator(password: string, errors: string[]): string[] {
+function digitValidator(password: string, errors: string[]): string[] {
   if (!/[0-9]/.test(password)) {
     return [...errors, "Password must contain a digit"];
   }
   return errors;
 }
 
-export function caseValidator(password: string, errors: string[]): string[] {
+function caseValidator(password: string, errors: string[]): string[] {
   const newErrors: string[] = [];
   if (!/[A-Z]/.test(password)) {
     newErrors.push("Password must contain an uppercase letter");
