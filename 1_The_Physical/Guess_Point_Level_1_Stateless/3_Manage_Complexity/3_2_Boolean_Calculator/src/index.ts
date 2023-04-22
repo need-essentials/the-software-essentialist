@@ -1,14 +1,11 @@
-import { ASTNode, Evaluator, Parser, Tokenizer } from "./parser";
+import { Evaluator, Parser, Tokenizer } from "./parser";
 
 export class BooleanCalculator {
-  private ast: ASTNode;
+  private constructor() {}
 
-  constructor(expression: string) {
+  public static evaluate(expression: string): boolean {
     const tokens = new Tokenizer(expression).tokenize();
-    this.ast = new Parser(tokens).parse();
-  }
-
-  public evaluate(): boolean {
-    return Evaluator.evaluate(this.ast);
+    const ast = new Parser(tokens).parse();
+    return Evaluator.evaluate(ast);
   }
 }
