@@ -1,8 +1,3 @@
-import {
-  AbstractPasswordValidatorHandler,
-  IPasswordValidatorHandler,
-} from "./AbstractPasswordValidatorHandler";
-
 export interface IPasswordValidatorResult {
   result: boolean;
   errors?: string[];
@@ -29,51 +24,33 @@ export function digitValidator(password: string, errors: string[]): string[] {
   return errors;
 }
 
-export class CaseValidator extends AbstractPasswordValidatorHandler {
-  handle(password: string, result: PasswordValidatorResult): void {
-    if (!/[A-Z]/.test(password)) {
-      result.addError("Password must contain an uppercase letter");
-    }
-
-    if (!/[a-z]/.test(password)) {
-      result.addError("Password must contain a lowercase letter");
-    }
-    super.handle(password, result);
+export function caseValidator(password: string, errors: string[]): string[] {
+  const newErrors: string[] = [];
+  if (!/[A-Z]/.test(password)) {
+    newErrors.push("Password must contain an uppercase letter");
   }
+
+  if (!/[a-z]/.test(password)) {
+    newErrors.push("Password must contain a lowercase letter");
+  }
+  return [...errors, ...newErrors];
 }
 
-export class PasswordValidatorResult implements IPasswordValidatorResult {
-  result: boolean;
-  errors?: string[];
-
-  constructor(result: boolean, errors?: string[]) {
-    this.result = result;
-    this.errors = errors;
+export function passwordValidator(
+  password: string,
+  validators: PasswordValidatorHandler[] = [
+    lengthValidator,
+    digitValidator,
+    caseValidator,
+  ]
+): IPasswordValidatorResult {
+  let errors: string[] = [];
+  for (const validator of validators) {
+    errors = validator(password, errors);
   }
 
-  public addError(...errors: string[]): void {
-    this.result = false;
-    if (!this.errors) {
-      this.errors = [];
-    }
-    this.errors.push(...errors);
-  }
-}
-
-export class PasswordValidator {
-  private password: string;
-  private handler: IPasswordValidatorHandler;
-
-  constructor(password: string) {
-    this.password = password;
-    this.handler = new CaseValidator();
-  }
-
-  public validate(): IPasswordValidatorResult {
-    const result = new PasswordValidatorResult(true);
-
-    this.handler.handle(this.password, result);
-
-    return result;
-  }
+  return {
+    result: errors.length === 0,
+    errors,
+  };
 }
