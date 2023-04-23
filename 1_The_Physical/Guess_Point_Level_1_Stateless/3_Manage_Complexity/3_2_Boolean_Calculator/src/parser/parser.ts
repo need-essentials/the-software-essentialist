@@ -59,7 +59,11 @@ export class Parser {
     if (token === OPERATOR.NOT) {
       const { node: value, newIndex } = Parser.parseUnary(tokens, index + 1);
       return {
-        node: new UnaryExpressionNode(token as OPERATOR, value),
+        node: {
+          type: "UnaryExpression",
+          operator: token as OPERATOR,
+          argument: value,
+        } as UnaryExpressionNode,
         newIndex,
       };
     }
