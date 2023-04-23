@@ -3,7 +3,7 @@ import { parseBooleanValue } from "../utils";
 import { ASTNode } from "./ast_nodes/ast_node";
 import { binaryExpressionNodeFactory } from "./ast_nodes/binary_expression_node";
 import { literalNodeFactory } from "./ast_nodes/literal_node";
-import { UnaryExpressionNode } from "./ast_nodes/unary_expression_node";
+import { unaryExpressionNodeFactory } from "./ast_nodes/unary_expression_node";
 import { Token } from "./tokenizer";
 
 export class Parser {
@@ -59,11 +59,7 @@ export class Parser {
     if (token === OPERATOR.NOT) {
       const { node: value, newIndex } = Parser.parseUnary(tokens, index + 1);
       return {
-        node: {
-          type: "UnaryExpression",
-          operator: token as OPERATOR,
-          argument: value,
-        } as UnaryExpressionNode,
+        node: unaryExpressionNodeFactory(token as OPERATOR, value),
         newIndex,
       };
     }
