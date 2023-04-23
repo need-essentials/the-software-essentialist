@@ -1,7 +1,7 @@
 import { BOOLEAN_VALUE, OPERATOR } from "../enums";
 import { parseBooleanValue } from "../utils";
 import { ASTNode } from "./ast_nodes/ast_node";
-import { BinaryExpressionNode } from "./ast_nodes/binary_expression_node";
+import { binaryExpressionNodeFactory } from "./ast_nodes/binary_expression_node";
 import { LiteralNode } from "./ast_nodes/literal_node";
 import { UnaryExpressionNode } from "./ast_nodes/unary_expression_node";
 import { Token } from "./tokenizer";
@@ -46,12 +46,7 @@ export class Parser {
   ): { node: ASTNode; newIndex: number } {
     const { node: right, newIndex } = Parser.parseUnary(tokens, index);
     return {
-      node: {
-        type: "BinaryExpression",
-        operator,
-        left,
-        right,
-      } as BinaryExpressionNode,
+      node: binaryExpressionNodeFactory(operator, left, right),
       newIndex,
     };
   }
