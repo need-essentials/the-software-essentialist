@@ -8,13 +8,15 @@ export interface BinaryExpressionNode extends ASTNode {
   readonly right: ASTNode;
 }
 
-export const binaryExpressionNodeFactory = (
+export function binaryExpressionNodeFactory(
   operator: OPERATOR,
   left: ASTNode,
   right: ASTNode
-): BinaryExpressionNode => ({
-  type: "BinaryExpression",
-  operator,
-  left,
-  right,
-});
+): BinaryExpressionNode {
+  return {
+    type: "BinaryExpression",
+    operator,
+    left,
+    right,
+  };
+}
