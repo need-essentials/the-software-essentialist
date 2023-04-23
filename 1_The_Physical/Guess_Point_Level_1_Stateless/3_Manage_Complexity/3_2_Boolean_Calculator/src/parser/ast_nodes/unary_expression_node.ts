@@ -6,3 +6,14 @@ export interface UnaryExpressionNode extends ASTNode {
   readonly operator: OPERATOR;
   readonly argument: ASTNode;
 }
+
+export function unaryExpressionNodeFactory(
+  operator: OPERATOR,
+  argument: ASTNode
+): UnaryExpressionNode {
+  return {
+    type: "UnaryExpression",
+    operator,
+    argument,
+  };
+}
