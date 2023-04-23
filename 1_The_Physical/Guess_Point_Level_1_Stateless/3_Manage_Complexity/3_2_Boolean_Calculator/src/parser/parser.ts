@@ -83,7 +83,10 @@ export class Parser {
         );
       }
       return {
-        node: new LiteralNode(parseBooleanValue(token as BOOLEAN_VALUE)),
+        node: {
+          type: "Literal",
+          value: parseBooleanValue(token as BOOLEAN_VALUE),
+        } as LiteralNode,
         newIndex: index,
       };
     } else if (Array.isArray(token)) {
