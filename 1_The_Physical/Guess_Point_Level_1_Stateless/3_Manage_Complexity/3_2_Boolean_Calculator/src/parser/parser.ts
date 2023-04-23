@@ -2,7 +2,7 @@ import { BOOLEAN_VALUE, OPERATOR } from "../enums";
 import { parseBooleanValue } from "../utils";
 import { ASTNode } from "./ast_nodes/ast_node";
 import { binaryExpressionNodeFactory } from "./ast_nodes/binary_expression_node";
-import { LiteralNode } from "./ast_nodes/literal_node";
+import { literalNodeFactory } from "./ast_nodes/literal_node";
 import { UnaryExpressionNode } from "./ast_nodes/unary_expression_node";
 import { Token } from "./tokenizer";
 
@@ -83,10 +83,7 @@ export class Parser {
         );
       }
       return {
-        node: {
-          type: "Literal",
-          value: parseBooleanValue(token as BOOLEAN_VALUE),
-        } as LiteralNode,
+        node: literalNodeFactory(parseBooleanValue(token as BOOLEAN_VALUE)),
         newIndex: index,
       };
     } else if (Array.isArray(token)) {
