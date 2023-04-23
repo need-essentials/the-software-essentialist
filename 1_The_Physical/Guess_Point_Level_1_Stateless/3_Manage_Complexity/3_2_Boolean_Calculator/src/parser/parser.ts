@@ -45,7 +45,15 @@ export class Parser {
     operator: OPERATOR
   ): { node: ASTNode; newIndex: number } {
     const { node: right, newIndex } = Parser.parseUnary(tokens, index);
-    return { node: new BinaryExpressionNode(operator, left, right), newIndex };
+    return {
+      node: {
+        type: "BinaryExpression",
+        operator,
+        left,
+        right,
+      } as BinaryExpressionNode,
+      newIndex,
+    };
   }
 
   private static parseUnary(
